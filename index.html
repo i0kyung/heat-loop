@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HEAT LOOP — 샤워 배수열 회수 | Carbon Start</title>
+<meta name="description" content="버려지는 샤워 온수의 열을 회수해 새로 들어오는 물을 미리 데우는 건물용 스마트 배수열 회수 모듈 HEAT LOOP 시제품 웹">
+<meta name="theme-color" content="#f7f6f1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HEAT LOOP">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-64.png" sizes="64x64" type="image/png">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/app-shell.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#home" aria-label="HEAT LOOP 홈">
+      <img src="icons/icon-64.png" width="32" height="32" alt="">
+      <span>HEAT LOOP<small>by Carbon Start</small></span>
+    </a>
+    <span class="pagetitle" id="pageTitle" aria-hidden="true"></span>
+    <div class="spacer"></div>
+    <button class="btn sm sage" type="button" id="installBtn" hidden>앱 설치</button>
+  </div>
+</header>
+
+<!-- 하단 탭바(폰) / 왼쪽 레일(태블릿·데스크톱): 선택한 3D 아이콘이 위로 떠오른다 -->
+<nav class="tabbar" aria-label="주요 화면">
+  <a href="#home" style="--i:0"><span class="ic"><img src="assets/icons3d/home.png" alt=""></span><span class="tl">홈</span></a>
+  <a href="#diagnose" style="--i:1"><span class="ic"><img src="assets/icons3d/clipboard.png" alt=""></span><span class="tl">진단</span></a>
+  <a href="#demo" style="--i:2"><span class="ic"><img src="assets/icons3d/exchange.png" alt=""></span><span class="tl">시연</span></a>
+  <a href="#economics" style="--i:3"><span class="ic"><img src="assets/icons3d/coins.png" alt=""></span><span class="tl">효과</span></a>
+  <a href="#report" style="--i:4"><span class="ic"><img src="assets/icons3d/doc.png" alt=""></span><span class="tl">보고서</span></a>
+</nav>
+
+<main id="main">
+<!-- ============ 랜딩 ============ -->
+<section id="home" class="view" aria-labelledby="h-home">
+  <!-- 앱 홈: 시설관리 담당자가 폰으로 여는 첫 화면 -->
+  <div class="apphome">
+    <div class="greet">
+      <div><p class="small muted" id="greetDate"></p><h2 class="greet-h">오늘의 열 회수</h2></div>
+      <img class="team-logo" src="assets/claim-logo.png" alt="Team CLAIM" width="120" height="43">
+    </div>
+    <div class="todaycard" id="todayCard"></div>
+    <div class="launcher" role="list" aria-label="바로가기">
+      <a role="listitem" class="app" href="#diagnose" style="--i:0"><span class="tile"><img src="assets/icons3d/clipboard.png" alt=""></span><span>적합도 진단</span></a>
+      <a role="listitem" class="app" href="#demo" style="--i:1"><span class="tile"><img src="assets/icons3d/exchange.png" alt=""></span><span>열 회수 시연</span></a>
+      <a role="listitem" class="app" href="#economics" style="--i:2"><span class="tile"><img src="assets/icons3d/coins.png" alt=""></span><span>효과·경제성</span></a>
+      <a role="listitem" class="app" href="#building" style="--i:3"><span class="tile"><img src="assets/icons3d/building.png" alt=""></span><span>건물 3D</span></a>
+      <a role="listitem" class="app" href="#product" style="--i:4"><span class="tile"><img src="assets/icons3d/pipe.png" alt=""></span><span>제품 구조</span></a>
+      <a role="listitem" class="app" href="#report" style="--i:5"><span class="tile"><img src="assets/icons3d/doc.png" alt=""></span><span>보고서</span></a>
+    </div>
+    <div class="todo card flat" id="todoCard"></div>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Drain-water heat recovery</div>
+      <h1 id="h-home">샤워 후 버려지는 열,<br><em>다시 물을 데웁니다.</em></h1>
+      <p class="lead">물은 섞지 않고 열만 옮기고, 회수한 열을 화면으로 보여줍니다.</p>
+      <div class="hero-cta"><button class="btn" type="button" data-act="quick-demo"><img class="ico3d" src="assets/icons3d/play.png" alt="">3분 시연</button></div>
+      <div class="legend" aria-label="색상 범례">
+        <span><i class="sw" style="background:var(--hot)"></i>따뜻한 배수</span>
+        <span><i class="sw" style="background:var(--cold)"></i>찬 급수</span>
+        <span><i class="sw" style="background:var(--pre)"></i>예열된 급수</span>
+      </div>
+    </div>
+    <div class="hero-art" id="heroArt" aria-label="HEAT LOOP Core 제품 개념 이미지"></div>
+  </div>
+
+  <div class="principle">
+    <div class="card flat pcard"><img src="assets/icons3d/heat.png" alt=""><div><h3>물이 아닌 열을 회수</h3><p class="muted small">배수에 남은 열만 새 급수로 옮깁니다.</p></div></div>
+    <div class="card flat pcard"><img src="assets/icons3d/shield.png" alt=""><div><h3>두 물길은 분리</h3><p class="muted small">이중벽 구리관으로 폐수와 급수를 나눕니다.</p></div></div>
+    <div class="card flat pcard"><img src="assets/icons3d/gauge.png" alt=""><div><h3>측정과 가정을 구분</h3><p class="muted small"><span class="badge sim">SIMULATED</span> <span class="badge meas">MEASURED</span> <span class="badge est">ESTIMATED</span></p></div></div>
+  </div>
+  <p class="small muted mt">창업캠프 시제품입니다. 성능은 검증 전이며, 실제 배관 설치는 전문업체·인증 검토가 필요합니다.</p>
+</section>
+
+<!-- ============ STEP 01 ============ -->
+<section id="diagnose" class="view" aria-labelledby="h-diag">
+  <div class="stephead">
+    <img class="stepicon" src="assets/icons3d/clipboard.png" alt="">
+    <div><span class="stepnum">STEP 01</span><h2 id="h-diag">배수열 회수 적합도 진단</h2><p class="q">설치할 가치가 있을까요?</p></div>
+    <div class="spacer"></div>
+    <div class="row noprint">
+      <span class="small muted">예시</span>
+      <button class="btn ghost sm" type="button" data-example="gym">헬스장</button>
+      <button class="btn ghost sm" type="button" data-example="hotel">호텔</button>
+      <button class="btn ghost sm" type="button" data-example="partial">정보 부족</button>
+    </div>
+  </div>
+
+  <div id="diagForm" class="card">
+    <form class="form" id="dform" novalidate>
+      <fieldset>
+        <legend>1. 시설</legend>
+        <div class="field"><span class="lbl" id="lb-type">건물 유형</span>
+          <div class="chips" role="radiogroup" aria-labelledby="lb-type" data-name="type"></div></div>
+        <div class="fgrid mt-s">
+          <div class="field"><label for="d-area">연면적 <span class="muted">(참고용)</span></label><div class="unitwrap"><input id="d-area" type="number" inputmode="decimal" min="0" step="1"><span>㎡</span></div><span class="hint">판정에 쓰지 않음</span></div>
+          <div class="field"><label for="d-grade">서울시 에너지 등급 <span class="muted">(선택)</span></label><select id="d-grade"><option value="">입력 안 함</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>예비등급 통보 받음</option></select><span class="hint">통보받은 등급 그대로 · 참고용</span></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>2. 샤워 사용 패턴</legend>
+        <div class="fgrid">
+          <div class="field"><label for="d-heads">샤워기 수</label><div class="unitwrap"><input id="d-heads" type="number" inputmode="numeric" min="0" step="1"><span>개</span></div></div>
+          <div class="field"><label for="d-users">일평균 샤워 이용 인원</label><div class="unitwrap"><input id="d-users" type="number" inputmode="numeric" min="0" step="1"><span>명/일</span></div></div>
+          <div class="field"><label for="d-minutes">1인 평균 샤워시간</label><div class="unitwrap"><input id="d-minutes" type="number" inputmode="decimal" min="0" step="0.5"><span>분</span></div></div>
+          <div class="field"><label for="d-flow">샤워 유량</label><div class="unitwrap"><input id="d-flow" type="number" inputmode="decimal" min="0" step="0.5"><span>L/min</span></div><span class="hint">보통 7~12</span></div>
+          <div class="field"><label for="d-peak">피크 동시 사용 샤워기 수 <span class="muted">(선택)</span></label><div class="unitwrap"><input id="d-peak" type="number" inputmode="numeric" min="0" step="1"><span>개</span></div><span class="hint">비우면 추정</span></div>
+        </div>
+        <div class="field mt-s"><span class="lbl" id="lb-slot">사용이 몰리는 시간</span><div class="chips" role="radiogroup" aria-labelledby="lb-slot" data-name="timeSlot"></div></div>
+      </fieldset>
+      <fieldset>
+        <legend>3. 급탕·배관</legend>
+        <div class="field"><span class="lbl" id="lb-src">급탕 열원</span><div class="chips" role="radiogroup" aria-labelledby="lb-src" data-name="heatSource"></div></div>
+        <div class="field mt-s"><span class="lbl" id="lb-pipe">배수관 위치</span><div class="radios" role="radiogroup" aria-labelledby="lb-pipe" data-name="pipe"></div></div>
+        <div class="field mt-s"><span class="lbl" id="lb-ex">기존 배수열 회수 설비</span><div class="chips" role="radiogroup" aria-labelledby="lb-ex" data-name="existing"></div></div>
+      </fieldset>
+      <details>
+        <summary class="small" style="cursor:pointer;font-weight:700">가정값 <span class="badge est">ESTIMATED</span></summary>
+        <div class="fgrid mt-s">
+          <div class="field"><label for="a-mix">샤워 혼합수 온도</label><div class="unitwrap"><input id="a-mix" type="number" step="0.5"><span>℃</span></div></div>
+          <div class="field"><label for="a-cold">상수도 급수 온도</label><div class="unitwrap"><input id="a-cold" type="number" step="0.5"><span>℃</span></div><span class="hint">연평균 (겨울 5~10, 여름 20~25)</span></div>
+          <div class="field"><label for="a-loss">배수관까지 온도 손실</label><div class="unitwrap"><input id="a-loss" type="number" step="0.5"><span>℃</span></div></div>
+          <div class="field"><label for="a-eff">열교환 유효도 ε (보수적 가정)</label><div class="unitwrap"><input id="a-eff" type="number" step="0.01" min="0" max="0.9"><span>0~1</span></div><span class="hint">상용 제품 약 0.25~0.5 · 실측 전</span></div>
+        </div>
+      </details>
+      <div class="row">
+        <button class="btn" type="submit">진단하기</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="diagResult" hidden></div>
+</section>
+
+<!-- ============ STEP 02 ============ -->
+<section id="demo" class="view" aria-labelledby="h-demo">
+  <div class="stephead">
+    <img class="stepicon" src="assets/icons3d/exchange.png" alt="">
+    <div><span class="stepnum">STEP 02</span><h2 id="h-demo">열 회수 시연</h2><p class="q">헬스장 샤워실 19:00~21:00</p></div>
+  </div>
+
+  <div class="demo-bar noprint" role="toolbar" aria-label="시연 조작">
+    <div class="seg" role="group" aria-label="작동 모드">
+      <button type="button" data-mode="BYPASS" aria-pressed="false">BYPASS</button>
+      <button type="button" data-mode="ON" class="on-btn" aria-pressed="true">HEAT RECOVERY ON</button>
+    </div>
+    <button class="btn sm" type="button" id="playBtn">▶ 재생</button>
+    <button class="btn ghost sm" type="button" id="resetBtn" aria-label="처음부터">↺</button>
+    <button class="btn sage sm" type="button" data-act="auto-demo">자동 비교</button>
+    <div class="spacer"></div>
+    <select id="srcSel" class="btn ghost sm" style="padding-right:10px" aria-label="데이터 출처">
+      <option value="simulation">시뮬레이션</option>
+      <option value="serial">USB 센서</option>
+    </select>
+  </div>
+  <div id="srcNote" class="note info" hidden></div>
+
+  <div class="demo-grid mt-s">
+    <div class="card viz" id="vizCard">
+      <div class="clock"><span id="clock" class="num">19:00</span><small id="clockSub">시뮬레이션 시각</small></div>
+      <div class="statusline" id="statusLine"></div>
+      <div id="viz"></div>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div class="kpi hot big"><img class="kico" src="assets/icons3d/heat.png" alt=""><div class="k">회수 열출력</div><b id="k-kw" class="num">—</b><div class="s" id="k-kw-s"></div></div>
+      <div class="kpi"><img class="kico" src="assets/icons3d/growth.png" alt=""><div class="k">누적 회수 열량 <span id="k-acc-b"></span></div><b id="k-acc" class="num">0.00</b><div class="s" id="k-acc-s"></div></div>
+      <div class="sensors">
+        <div class="sensor hot"><div class="k">T1 배수 입구</div><b id="m-t1">—</b></div>
+        <div class="sensor hot"><div class="k">T2 배수 출구</div><b id="m-t2">—</b></div>
+        <div class="sensor cold"><div class="k">T3 급수 입구</div><b id="m-t3">—</b></div>
+        <div class="sensor pre"><div class="k">T4 급수 출구</div><b id="m-t4">—</b></div>
+        <div class="sensor flow"><div class="k">배수 유량</div><b id="m-fd">—</b></div>
+        <div class="sensor flow"><div class="k">급수 유량</div><b id="m-fc">—</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g2 mt">
+    <div class="card">
+      <h3>BYPASS vs ON</h3>
+      <div class="compare" id="compare"></div>
+    </div>
+    <div class="card">
+      <h3>장치 상태</h3>
+      <ul class="issues" id="issues"></ul>
+      <div class="row mt-s noprint"><label class="small muted" for="faultSel">오류 시연</label><select id="faultSel" class="btn ghost sm"></select></div>
+    </div>
+  </div>
+
+  <div class="card mt chart">
+    <div class="row"><h3 style="margin:0">온도</h3><div class="spacer"></div>
+      <div class="legend"><span><i class="sw" style="background:var(--hot)"></i>T1</span><span><i class="sw" style="background:#f6b7a3"></i>T2</span><span><i class="sw" style="background:var(--cold)"></i>T3</span><span><i class="sw" style="background:var(--pre)"></i>T4</span><span><i class="sw" style="background:#dce9fb"></i>BYPASS</span></div></div>
+    <div id="chartT"></div>
+    <h3 class="mt-s">회수 열출력</h3>
+    <div id="chartK"></div>
+  </div>
+
+  <details class="card mt noprint">
+    <summary style="cursor:pointer;font-weight:750">시뮬레이터 조건 <span class="badge est">가정치</span></summary>
+    <div class="fgrid mt-s" id="simParams"></div>
+  </details>
+
+  <div class="card mt">
+    <div class="row"><h3 style="margin:0">실험 로그</h3><div class="spacer"></div><button class="btn ghost sm" type="button" id="csvBtn"><img class="ico3d" src="assets/icons3d/download.png" alt="">CSV</button></div>
+    <div class="scroll-x mt-s"><table class="tbl" id="logTbl"><thead><tr><th>시각</th><th>모드</th><th>상태</th><th class="n">T1</th><th class="n">T2</th><th class="n">T3</th><th class="n">T4</th><th class="n">유량 L/min</th><th class="n">kW_th</th></tr></thead><tbody></tbody></table></div>
+  </div>
+  <div class="row mt noprint"><a class="btn" href="#economics">STEP 03 →</a></div>
+</section>
+
+<!-- ============ STEP 03 ============ -->
+<section id="economics" class="view" aria-labelledby="h-econ">
+  <div class="stephead">
+    <img class="stepicon" src="assets/icons3d/coins.png" alt="">
+    <div><span class="stepnum">STEP 03</span><h2 id="h-econ">효과·경제성</h2><p class="q">샤워시설 급탕 계통 기준</p></div>
+  </div>
+  <div class="econ-grid">
+    <form class="card form" id="eform" novalidate aria-label="경제성 입력"></form>
+    <div id="econOut"></div>
+  </div>
+</section>
+
+<!-- ============ 건물 3D ============ -->
+<section id="building" class="view" aria-labelledby="h-bld">
+  <div class="stephead">
+    <img class="stepicon" src="assets/icons3d/building.png" alt="">
+    <div><div class="eyebrow">Building 3D</div><h2 id="h-bld">건물 3D</h2><p class="q">설치 위치와 건물 크기</p></div>
+  </div>
+  <div class="bld-grid">
+    <div class="card bld-viewcard">
+      <div class="row bld-tools">
+        <div class="seg" role="group" aria-label="보는 시점" id="viewSeg">
+          <button type="button" data-view="iso" aria-pressed="true">조감</button>
+          <button type="button" data-view="ground" aria-pressed="false">지상</button>
+          <button type="button" data-view="front" aria-pressed="false">정면</button>
+          <button type="button" data-view="section" aria-pressed="false">단면</button>
+        </div>
+        <div class="spacer"></div>
+        <span id="bldStatus"></span>
+      </div>
+      <div class="b3" id="b3" role="img" aria-label="건물 개략 3D 모델: 샤워실, 기계실, 배수 수직관, HEAT LOOP Core 위치"><div class="b3-loading" id="b3Loading">3D 엔진 불러오는 중…</div></div>
+      <p class="small muted mt-s" id="viewHint">드래그로 회전 · 핀치로 확대</p>
+      <div class="row mt-s noprint bld-live">
+        <div class="seg" role="group" aria-label="작동 모드">
+          <button type="button" data-mode="BYPASS" aria-pressed="false">BYPASS</button>
+          <button type="button" data-mode="ON" class="on-btn" aria-pressed="true">ON</button>
+        </div>
+        <button class="btn sm playToggle" type="button" data-act="play">▶ 재생</button>
+        <span class="small muted" id="bldLive"></span>
+      </div>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div class="grid g2 bld-kpis" id="bldKpis"></div>
+      <details class="card" id="bldFormWrap" open>
+        <summary style="cursor:pointer;font-weight:750">건물 치수</summary>
+        <form class="fgrid mt-s" id="bform" novalidate>
+          <div class="field"><label for="b-above">지상 층수</label><div class="unitwrap"><input id="b-above" type="number" min="1" max="80" step="1" inputmode="numeric"><span>층</span></div></div>
+          <div class="field"><label for="b-below">지하 층수</label><div class="unitwrap"><input id="b-below" type="number" min="0" max="8" step="1" inputmode="numeric"><span>층</span></div></div>
+          <div class="field"><label for="b-h">층고</label><div class="unitwrap"><input id="b-h" type="number" min="2.4" max="8" step="0.1" inputmode="decimal"><span>m</span></div></div>
+          <div class="field"><label for="b-w">정면 가로</label><div class="unitwrap"><input id="b-w" type="number" min="5" max="300" step="1" inputmode="decimal"><span>m</span></div></div>
+          <div class="field"><label for="b-d">측면 세로</label><div class="unitwrap"><input id="b-d" type="number" min="5" max="300" step="1" inputmode="decimal"><span>m</span></div></div>
+          <div class="field"><label for="b-shower">샤워실 층</label><select id="b-shower"></select></div>
+          <div class="field"><label for="b-mech">기계실 층</label><select id="b-mech"></select></div>
+        </form>
+      </details>
+      <div class="note" id="bldIssues" hidden></div>
+    </div>
+  </div>
+  <p class="small muted mt"><span class="badge est">개략 모형</span> 실측 도면 아님 · 배관 경로는 예시 · Core는 크게 표시</p>
+</section>
+
+<!-- ============ 제품 ============ -->
+<section id="product" class="view" aria-labelledby="h-prod">
+  <div class="stephead">
+    <img class="stepicon" src="assets/icons3d/pipe.png" alt="">
+    <div><div class="eyebrow">Product</div><h2 id="h-prod">제품 구성</h2><p class="q">Core · Sense · Dashboard</p></div>
+  </div>
+  <div class="grid g3">
+    <div class="card pcard"><img src="assets/icons3d/exchange.png" alt=""><div><h3>Core</h3><p class="small muted">이중벽 열교환 · 전원 불필요 · 점검 커버</p></div></div>
+    <div class="card pcard"><img src="assets/icons3d/thermo.png" alt=""><div><h3>Sense</h3><p class="small muted">온도 4 · 유량 2 · ESP32</p></div></div>
+    <div class="card pcard"><img src="assets/icons3d/bars.png" alt=""><div><h3>Dashboard</h3><p class="small muted">회수 열량 · 비용·탄소 추정 · 경고</p></div></div>
+  </div>
+
+  <div class="card mt">
+    <div class="tabs" role="tablist" aria-label="제품 도면 보기" id="prodTabs"></div>
+    <div class="drawing" id="drawing" role="tabpanel"></div>
+    <p class="small muted mt-s"><span class="badge est">설명용 개념도</span> 제조 도면 아님 · 치수 미정</p>
+  </div>
+
+  <div class="grid g2 mt">
+    <div class="card"><h3>CMF</h3><div class="cmf">
+      <div><i style="background:#f4f1ea"></i>Warm White — 커버</div>
+      <div><i style="background:#88a99a"></i>Sage Green — 상태 밴드</div>
+      <div><i style="background:#2c3330"></i>Charcoal — 캡·연결부</div>
+      <div><i style="background:linear-gradient(90deg,#9d978c,#e6e2da,#9d978c)"></i>Brushed Metal — 레일</div>
+      <div><i style="background:linear-gradient(90deg,#9a6440,#e2b48c,#9a6440)"></i>Copper — 열교환부</div>
+    </div></div>
+    <div class="card"><h3>작동 단계</h3><ol class="steps5" style="grid-template-columns:1fr"><li>따뜻한 배수가 관 안쪽으로 내려감</li><li>구리 벽으로 열 전달</li><li>찬 급수가 코일을 타고 올라가며 데워짐</li><li>예열수가 급탕기로 → 가열 부담 감소</li><li>Sense가 회수 열량 계산</li></ol></div>
+  </div>
+  <div class="note warn mt">실제 급수 배관 설치는 역류방지·위생·압력손실 검토와 전문업체·인증이 필요합니다. 시제품은 식수와 분리된 저전압 장치로만 시연합니다.</div>
+</section>
+
+<!-- ============ 보고서 ============ -->
+<section id="report" class="view" aria-labelledby="h-rep">
+  <div class="stephead">
+    <img class="stepicon" src="assets/icons3d/doc.png" alt="">
+    <div><div class="eyebrow">Report</div><h2 id="h-rep">검토 보고서</h2><p class="q">세 질문의 답</p></div>
+    <div class="spacer"></div>
+    <div class="row noprint"><button class="btn ghost sm" type="button" id="copyBtn"><img class="ico3d" src="assets/icons3d/share.png" alt="">요약 복사</button><button class="btn sm" type="button" id="printBtn">인쇄 / PDF</button></div>
+  </div>
+  <div class="card report" id="reportBody"></div>
+  <textarea id="copyFallback" class="mt" rows="10" style="width:100%;display:none" aria-label="복사할 요약"></textarea>
+</section>
+</main>
+
+<footer><img src="assets/claim-logo.png" alt="Team CLAIM" width="96" height="35"><span>HEAT LOOP 시제품 · Carbon Start · 7조 CLAIM · 2026 탄소중립 창업캠프</span></footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "heat-loop",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "HEAT LOOP v3 — 샤워 배수열 회수 제품 시연·진단·경제성 정적 웹 프로토타입",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "serve": "npx --yes http-server -p 5173 -c-1 ."
+  }
+}
